@@ -68,4 +68,40 @@ class CloudEventTest extends TestCase
 
         $this->assertEquals(json_encode($event, JSON_PRETTY_PRINT), $want);
     }
+
+    public function testTimeCanBeDateTime()
+    {
+        $time = new \DateTime();
+        $event = new CloudEvent(
+            '1413058901901494',
+            '//pubsub.googleapis.com/projects/MY-PROJECT/topics/MY-TOPIC',
+            '1.0',
+            'com.google.cloud.pubsub.topic.publish',
+            'application/json',
+            'type.googleapis.com/google.logging.v2.LogEntry',
+            'My Subject',
+            $time, // can be a datetime
+            null
+        );
+
+        $this->assertEquals($time, $event->getTime());
+    }
+
+    public function testInvalidTime()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('time must be a string, DateTime, or null');
+
+        $event = new CloudEvent(
+            '1413058901901494',
+            '//pubsub.googleapis.com/projects/MY-PROJECT/topics/MY-TOPIC',
+            '1.0',
+            'com.google.cloud.pubsub.topic.publish',
+            'application/json',
+            'type.googleapis.com/google.logging.v2.LogEntry',
+            'My Subject',
+            123456, // not a string, datetime, or null
+            null
+        );
+    }
 }

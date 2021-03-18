@@ -47,7 +47,7 @@ class CloudEvent implements JsonSerializable
         ?string $datacontenttype,
         ?string $dataschema,
         ?string $subject,
-        ?string $time,
+        $time,
         $data
     ) {
         $this->id = $id;
@@ -154,10 +154,16 @@ class CloudEvent implements JsonSerializable
         return $output;
     }
 
-    private static function timeAsDateTime(?string $time): ?DateTime
+    private static function timeAsDateTime($time): ?DateTime
     {
-        if (is_null($time)) {
-            return null;
+        if ($time instanceof DateTime || is_null($time)) {
+            return $time;
+        }
+
+        if (!is_string($time)) {
+            throw new \UnexpectedValueException(
+                'time must be a string, DateTime, or null'
+            );
         }
 
         return new DateTime($time);
