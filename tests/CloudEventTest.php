@@ -36,7 +36,7 @@ class CloudEventTest extends TestCase
             'application/json',
             'type.googleapis.com/google.logging.v2.LogEntry',
             'My Subject',
-            '2020-12-08T20:03:19.162Z',
+            '2020-12-08T20:03:19+00:00',
             [
                 "message" => [
                     "data" => "SGVsbG8gdGhlcmU=",
@@ -55,7 +55,7 @@ class CloudEventTest extends TestCase
     "datacontenttype": "application\/json",
     "dataschema": "type.googleapis.com\/google.logging.v2.LogEntry",
     "subject": "My Subject",
-    "time": "2020-12-08T20:03:19.162Z",
+    "time": "2020-12-08T20:03:19+00:00",
     "data": {
         "message": {
             "data": "SGVsbG8gdGhlcmU=",

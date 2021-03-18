@@ -19,6 +19,7 @@
 namespace Google\CloudFunctions;
 
 use JsonSerializable;
+use DateTime;
 
 class CloudEvent implements JsonSerializable
 {
@@ -56,7 +57,7 @@ class CloudEvent implements JsonSerializable
         $this->datacontenttype = $datacontenttype;
         $this->dataschema = $dataschema;
         $this->subject = $subject;
-        $this->time = $time;
+        $this->time = self::timeAsDateTime($time);
         $this->data = $data;
     }
 
@@ -88,7 +89,7 @@ class CloudEvent implements JsonSerializable
     {
         return $this->subject;
     }
-    public function getTime(): ?string
+    public function getTime(): ?DateTime
     {
         return $this->time;
     }
@@ -112,7 +113,7 @@ class CloudEvent implements JsonSerializable
             'dataschema',
             'subject',
             'time',
-            'data'
+            'data',
         ];
 
         foreach ($argKeys as $key) {
@@ -132,7 +133,7 @@ class CloudEvent implements JsonSerializable
             'datacontenttype' => $this->datacontenttype,
             'dataschema' => $this->dataschema,
             'subject' => $this->subject,
-            'time' => $this->time,
+            'time' => $this->timeAsString(),
             'data' => $this->data,
         ];
     }
@@ -148,8 +149,26 @@ class CloudEvent implements JsonSerializable
             "- datacontenttype: $this->datacontenttype",
             "- dataschema: $this->dataschema",
             "- subject: $this->subject",
-            "- time: $this->time",
+            "- time: " . $this->timeAsString(),
         ]);
         return $output;
+    }
+
+    private static function timeAsDateTime(?string $time): ?DateTime
+    {
+        if (is_null($time)) {
+            return null;
+        }
+
+        return new DateTime($time);
+    }
+
+    private function timeAsString(): string
+    {
+        if (is_null($this->time)) {
+            return '';
+        }
+
+        return $this->time->format('c');
     }
 }

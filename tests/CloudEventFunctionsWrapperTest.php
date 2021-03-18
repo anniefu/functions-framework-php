@@ -22,6 +22,7 @@ use Google\CloudFunctions\CloudEventFunctionWrapper;
 use Google\CloudFunctions\CloudEvent;
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Psr7\ServerRequest;
+use DateTime;
 
 /**
  * @group gcf-framework
@@ -239,7 +240,7 @@ class CloudEventFunctionWrapperTest extends TestCase
         $this->assertEquals('application/json', $cloudevent->getDataContentType());
         $this->assertEquals('type.googleapis.com/google.logging.v2.LogEntry', $cloudevent->getDataSchema());
         $this->assertEquals('My Subject', $cloudevent->getSubject());
-        $this->assertEquals('2020-12-08T20:03:19.162Z', $cloudevent->getTime());
+        $this->assertEquals(new DateTime('2020-12-08T20:03:19.162Z'), $cloudevent->getTime());
     }
 
     public function testWithNotFullButValidCloudEvent()
@@ -306,7 +307,7 @@ class CloudEventFunctionWrapperTest extends TestCase
         $this->assertEquals('application/json', $cloudevent->getDataContentType());
         $this->assertEquals(null, $cloudevent->getDataSchema());
         $this->assertEquals(null, $cloudevent->getSubject());
-        $this->assertEquals('2020-12-08T20:03:19.162Z', $cloudevent->getTime());
+        $this->assertEquals(new DateTime('2020-12-08T20:03:19.162Z'), $cloudevent->getTime());
     }
 
     public function testFromStructuredEventRequest()

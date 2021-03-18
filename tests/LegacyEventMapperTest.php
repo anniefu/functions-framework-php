@@ -20,6 +20,7 @@ namespace Google\CloudFunctions\Tests;
 
 use Google\CloudFunctions\LegacyEventMapper;
 use PHPUnit\Framework\TestCase;
+use DateTime;
 
 /**
  * @group gcf-framework
@@ -89,7 +90,7 @@ class LegacyEventMapperTest extends TestCase
         $this->assertEquals('application/json', $cloudevent->getDataContentType());
         $this->assertEquals(null, $cloudevent->getDataSchema());
         $this->assertEquals(null, $cloudevent->getSubject());
-        $this->assertEquals('2020-12-08T20:03:19.162Z', $cloudevent->getTime());
+        $this->assertEquals(new DateTime('2020-12-08T20:03:19.162Z'), $cloudevent->getTime());
 
         // Verify Pub/Sub-specific data transformation.
         $this->assertEquals(['message' => 'foo'], $cloudevent->getData());
@@ -120,7 +121,7 @@ class LegacyEventMapperTest extends TestCase
         $this->assertEquals('application/json', $cloudevent->getDataContentType());
         $this->assertEquals(null, $cloudevent->getDataSchema());
         $this->assertEquals(null, $cloudevent->getSubject());
-        $this->assertEquals('2020-12-08T20:03:19.162Z', $cloudevent->getTime());
+        $this->assertEquals(new DateTime('2020-12-08T20:03:19.162Z'), $cloudevent->getTime());
 
         // Verify Pub/Sub-specific data transformation.
         $this->assertEquals(['message' => 'foo'], $cloudevent->getData());
@@ -159,7 +160,7 @@ class LegacyEventMapperTest extends TestCase
             'objects/MyFile#1588778055917163',
             $cloudevent->getSubject()
         );
-        $this->assertEquals('2020-12-08T20:03:19.162Z', $cloudevent->getTime());
+        $this->assertEquals(new DateTime('2020-12-08T20:03:19.162Z'), $cloudevent->getTime());
         $this->assertEquals('foo', $cloudevent->getData());
     }
 
@@ -206,7 +207,7 @@ class LegacyEventMapperTest extends TestCase
             'users/UUpby3s4spZre6kHsgVSPetzQ8l2',
             $cloudevent->getSubject()
         );
-        $this->assertEquals('2020-09-29T11:32:00.000Z', $cloudevent->getTime());
+        $this->assertEquals(new DateTime('2020-09-29T11:32:00.000Z'), $cloudevent->getTime());
         $this->assertEquals('2020-05-26T10:42:27Z', $cloudevent->getData()['metadata']['createTime']);
         $this->assertEquals('2020-10-24T11:00:00Z', $cloudevent->getData()['metadata']['lastSignInTime']);
     }
