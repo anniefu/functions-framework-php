@@ -13,7 +13,7 @@ jobs:
       http-builder-target: 'declarativeHttpFunc'
       cloudevent-builder-source: 'tests/conformance'
       cloudevent-builder-target: 'declarativeCloudEvent'
-      prerun: 'tests/conformance/prerun.sh ${{ github.sha }}'
+      prerun: 'tests/conformance/prerun.sh caff4321e38ac14cb158f3e2f01786609518ecd7'
       builder-runtime: 'php74'
       # Latest uploaded tag from us.gcr.io/fn-img/buildpacks/php74/builder
       builder-tag: 'php74_20220620_7_4_29_RC00'
@@ -24,7 +24,7 @@ jobs:
       http-builder-target: 'declarativeHttpFunc'
       cloudevent-builder-source: 'tests/conformance'
       cloudevent-builder-target: 'declarativeCloudEvent'
-      prerun: 'tests/conformance/prerun.sh ${{ github.sha }}'
+      prerun: 'tests/conformance/prerun.sh caff4321e38ac14cb158f3e2f01786609518ecd7'
       builder-runtime: 'php81'
       # Latest uploaded tag from us.gcr.io/fn-img/buildpacks/php81/builder
       builder-tag: 'php81_20220620_8_1_6_RC00'
